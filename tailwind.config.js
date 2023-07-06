@@ -1,4 +1,5 @@
-/** @type {import('tailwindcss').Config} */
+const formkitTailwind = require('@formkit/themes/tailwindcss')
+
 export default {
   purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   content: [],
@@ -8,6 +9,8 @@ export default {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    formkitTailwind
+  ],
 }
 
