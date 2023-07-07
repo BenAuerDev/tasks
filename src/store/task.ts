@@ -18,7 +18,7 @@ export const useTaskStore = defineStore("tasks", {
     addTask(text: string) {
       this.tasks.push({ open: true, text: text })
     },
-    closeTask: (task: Task) => (task.open = false),
+    toggleTaskStatus: (task: Task) => (task.open = !task.open),
   },
   persist: {
     storage: sessionStorage,
