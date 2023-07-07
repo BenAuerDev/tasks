@@ -2,9 +2,8 @@
 import TaskForm from '../components/TaskForm.vue'
 import { useTaskStore } from '../store/task'
 
-const { tasks, getOpenTasks, closeTask, getFinishedTasks } = useTaskStore()
+const { tasks, getOpenTasks, getFinishedTasks } = useTaskStore()
 
-closeTask(tasks[1])
 </script>
 
 <template>
