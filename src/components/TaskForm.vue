@@ -11,8 +11,8 @@ const submit = (text: string) => {
 </script>
 
 <template>
-  <div class="w-full max-w-md">
-    <FormKit id="task-form" type="form" @submit="(input) => submit(input)">
+  <div class="w-full">
+    <FormKit id="task-form" type="form" @submit="(input) => submit(input.text)">
 
       <FormKit type="text" name="text" validation="required" />
 
