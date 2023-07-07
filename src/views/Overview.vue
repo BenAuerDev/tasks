@@ -1,20 +1,17 @@
 <script setup lang="ts">
-import TaskForm from '../components/TaskForm.vue'
 import { useTaskStore } from '../store/task'
+import TaskForm from '../components/TaskForm.vue'
+import TaskCardList from '../components/TaskCardList.vue'
+import { storeToRefs } from 'pinia'
 
-const { tasks, getOpenTasks, getFinishedTasks } = useTaskStore()
+const { getOpenTasks } = storeToRefs(useTaskStore())
 
 </script>
 
 <template>
-    <div>Overview page soon to come...</div>
-
+  <div class="w-full max-w-lg">
+    <TaskCardList :tasks="getOpenTasks" />
 
     <TaskForm />
-
-    <div>{{ tasks }}</div>
-
-    <div>{{ getOpenTasks }}</div>
-
-    <div>{{ getFinishedTasks }}</div>
+  </div>
 </template>
