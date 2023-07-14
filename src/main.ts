@@ -1,24 +1,23 @@
-import { createApp } from "vue"
-import "./style.css"
-import App from "./App.vue"
-import router from "./router/index"
-import { plugin, defaultConfig } from "@formkit/vue"
-import config from "../formkit.config.ts"
-import "@formkit/themes/genesis"
-import { createPinia } from "pinia"
-import piniaPluginPersistedstate from "pinia-plugin-persistedstate"
-
-import "@mdi/font/css/materialdesignicons.css"
-import "vuetify/styles"
-import { createVuetify } from "vuetify"
-import * as components from "vuetify/components"
-import * as directives from "vuetify/directives"
+import '@formkit/themes/genesis'
+import { defaultConfig, plugin } from '@formkit/vue'
+import '@mdi/font/css/materialdesignicons.css'
+import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import { createApp } from 'vue'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import 'vuetify/styles'
+import config from '../formkit.config.ts'
+import App from './App.vue'
+import router from './router/index'
+import './style.css'
 
 const vuetify = createVuetify({
   components,
   directives,
   icons: {
-    defaultSet: "mdi",
+    defaultSet: 'mdi',
   },
 })
 
@@ -31,4 +30,4 @@ app
   .use(plugin, defaultConfig(config))
   .use(pinia)
   .use(vuetify)
-  .mount("#app")
+  .mount('#app')

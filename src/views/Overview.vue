@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { useTaskStore } from '../store/task'
-import TaskForm from '../components/TaskForm.vue'
-import TaskCardList from '../components/TaskCardList.vue'
 import { storeToRefs } from 'pinia'
+import TaskCardList from '../components/TaskCardList.vue'
+import TaskForm from '../components/TaskForm.vue'
+import { useTaskStore } from '../store/task'
 
 const { getOpenTasks } = storeToRefs(useTaskStore())
-
 </script>
 
 <template>

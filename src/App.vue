@@ -9,4 +9,3 @@ import Navigation from './components/Navigation.vue'
     <RouterView></RouterView>
   </div>
 </template>
-

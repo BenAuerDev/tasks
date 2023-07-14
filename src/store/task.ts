@@ -1,11 +1,11 @@
-import { defineStore } from "pinia"
-import { Task } from "../types/task"
+import { defineStore } from 'pinia'
+import { Task } from '../types/task'
 
 interface TaskArray {
   tasks: Task[]
 }
 
-export const useTaskStore = defineStore("tasks", {
+export const useTaskStore = defineStore('tasks', {
   state: (): TaskArray => ({
     tasks: [],
   }),

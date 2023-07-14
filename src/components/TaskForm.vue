@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useTaskStore } from '../store/task'
 import { reset } from '@formkit/vue'
+import { useTaskStore } from '../store/task'
 
 const { addTask } = useTaskStore()
 
@@ -13,9 +13,7 @@ const submit = (text: string) => {
 <template>
   <div class="w-full">
     <FormKit id="task-form" type="form" @submit="(input) => submit(input.text)">
-
       <FormKit type="text" name="text" validation="required" />
-
     </FormKit>
   </div>
 </template>
