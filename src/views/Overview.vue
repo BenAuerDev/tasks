@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import TaskCardList from '../components/TaskCardList.vue'
-import TaskForm from '../components/TaskForm.vue'
+import TaskFormModal from '../components/TaskFormModal.vue'
 import { useTaskStore } from '../store/task'
 
 const { getOpenTasks } = storeToRefs(useTaskStore())
 </script>
 
 <template>
-  <div class="w-full max-w-lg">
-    <TaskCardList :tasks="getOpenTasks" />
+  <div class="my-4 flex w-full max-w-lg flex-col gap-y-2">
+    <TaskFormModal />
 
-    <TaskForm />
+    <TaskCardList :tasks="getOpenTasks" />
   </div>
 </template>
