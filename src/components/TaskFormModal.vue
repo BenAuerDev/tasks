@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useTaskStore } from '../store/task'
+import { TaskForm } from '../types/task'
 
 const { addTask } = useTaskStore()
 
 const showModal = ref(false)
 
-const submit = (text: string) => {
-  addTask(text)
+const submit = (task: TaskForm) => {
+  addTask(task)
   showModal.value = false
 }
 </script>
@@ -26,7 +27,7 @@ const submit = (text: string) => {
             name="task-form"
             type="form"
             submit-label="Create task"
-            @submit="(input) => submit(input.text)"
+            @submit="(input) => submit(input)"
           >
             <p class="mb-4 text-2xl">Add a new task</p>
 
@@ -36,6 +37,20 @@ const submit = (text: string) => {
               name="text"
               validation="required"
             />
+
+            <FormKit
+              id="subTasks"
+              type="repeater"
+              name="subTasks"
+              #default="{ index }"
+            >
+              <FormKit
+                type="text"
+                :placeholder="`What is step #${index + 1}`"
+                name="text"
+                validation="required"
+              />
+            </FormKit>
           </FormKit>
         </div>
         <v-btn color="blue-lighten-1" @click="showModal = false">Cancel</v-btn>
