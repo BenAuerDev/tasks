@@ -1,6 +1,6 @@
 import moment from 'moment'
 import { defineStore } from 'pinia'
-import { Task } from '../types/task'
+import { SubTask, Task, TaskForm } from '../types/task'
 
 interface TaskArray {
   tasks: Task[]
@@ -16,12 +16,20 @@ export const useTaskStore = defineStore('tasks', {
       state.tasks.filter((task) => !task.open),
   },
   actions: {
-    addTask(text: string) {
+    addTask(task: TaskForm) {
       this.tasks.push({
         open: true,
-        text: text,
+        text: task.text,
         created: moment(),
         completed: null, // TODO: check if there is a smarter initial value for completed
+        subTasks: task.subTasks.length
+          ? task.subTasks.map((subTask: SubTask) => {
+              return {
+                open: true,
+                text: subTask.text,
+              }
+            })
+          : [],
       })
     },
     toggleTaskStatus: (task: Task) => {
