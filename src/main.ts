@@ -1,3 +1,5 @@
+import { createProPlugin, inputs } from '@formkit/pro'
+import '@formkit/pro/genesis'
 import '@formkit/themes/genesis'
 import { defaultConfig, plugin } from '@formkit/vue'
 import '@mdi/font/css/materialdesignicons.css'
@@ -13,6 +15,8 @@ import App from './App.vue'
 import router from './router/index'
 import './style.css'
 
+const pro = createProPlugin('fk-8bde343b28', inputs)
+
 const vuetify = createVuetify({
   components,
   directives,
@@ -27,7 +31,7 @@ const app = createApp(App)
 
 app
   .use(router)
-  .use(plugin, defaultConfig(config))
+  .use(plugin, defaultConfig({ config: config, plugins: [pro] }))
   .use(pinia)
   .use(vuetify)
   .mount('#app')
