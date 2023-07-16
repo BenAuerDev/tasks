@@ -33,15 +33,26 @@ const submit = (task: TaskForm) => {
 
             <FormKit
               type="text"
-              placeholder="What's the goal?"
               name="text"
+              label="Description"
+              placeholder="What's the goal?"
               validation="required"
+            />
+
+            <FormKit
+              type="range"
+              name="priority"
+              label="Priority"
+              min="1"
+              value="3"
+              max="10"
             />
 
             <FormKit
               id="subTasks"
               type="repeater"
               name="subTasks"
+              label="Subtasks"
               #default="{ index }"
             >
               <FormKit

@@ -11,7 +11,8 @@ defineProps<{
 const { toggleTaskStatus } = useTaskStore()
 
 const hasSubTask = (task: Task) => {
-  return task.subTasks.length > 1
+  // TODO: check if this can be done more elegantly
+  return task.subTasks ? task.subTasks.length > 1 : false
 }
 </script>
 
@@ -54,7 +55,9 @@ const hasSubTask = (task: Task) => {
         </v-btn>
       </div>
 
-      <p class="w-full text-center text-2xl">{{ task.text }}</p>
+      <p v-if="task.priority">Priority: {{ task.priority }}</p>
+
+      <p class="my-4 w-full text-center text-2xl">{{ task.text }}</p>
 
       <SubTaskList v-if="hasSubTask(task)" :sub-tasks="task.subTasks" />
     </v-sheet>
