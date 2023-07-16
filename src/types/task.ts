@@ -1,19 +1,18 @@
 import { Moment } from 'moment'
 
-export interface Task {
-  open: boolean
+export interface TaskForm {
   text: string
+  priority: number
+  subTasks: SubTask[] | []
+}
+
+export interface Task extends TaskForm {
+  open: boolean
   created: Moment
   completed: Moment | null
-  subTasks: SubTask[] | []
 }
 
 export interface SubTask {
   open: boolean
   text: string
-}
-
-export interface TaskForm {
-  text: string
-  subTasks: SubTask[] | []
 }
