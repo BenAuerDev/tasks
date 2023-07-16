@@ -4,17 +4,17 @@ import { useTaskStore } from '../store/task'
 
 const { addTask } = useTaskStore()
 
-const isOpen = ref(false)
+const showModal = ref(false)
 
 const submit = (text: string) => {
   addTask(text)
-  isOpen.value = false
+  showModal.value = false
 }
 </script>
 
 <template>
   <div class="text-center">
-    <v-dialog v-model="isOpen" width="600">
+    <v-dialog v-model="showModal" width="600">
       <template v-slot:activator="{ props }">
         <v-btn color="blue-lighten-1" v-bind="props"> Add Task </v-btn>
       </template>
@@ -38,7 +38,7 @@ const submit = (text: string) => {
             />
           </FormKit>
         </div>
-        <v-btn color="blue-lighten-1" @click="isOpen = false">Cancel</v-btn>
+        <v-btn color="blue-lighten-1" @click="showModal = false">Cancel</v-btn>
       </v-card>
     </v-dialog>
   </div>
