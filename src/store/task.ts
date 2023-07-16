@@ -22,6 +22,7 @@ export const useTaskStore = defineStore('tasks', {
         text: task.text,
         created: moment(),
         completed: null, // TODO: check if there is a smarter initial value for completed
+        priority: task.priority,
         subTasks: task.subTasks.length
           ? task.subTasks.map((subTask: SubTask) => {
               return {
