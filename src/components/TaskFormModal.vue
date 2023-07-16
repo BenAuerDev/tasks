@@ -48,7 +48,6 @@ const submit = (task: TaskForm) => {
                 type="text"
                 :placeholder="`What is step #${index + 1}`"
                 name="text"
-                validation="required"
               />
             </FormKit>
           </FormKit>
