@@ -41,6 +41,9 @@ export const useTaskStore = defineStore('tasks', {
         task.open = true
       }
     },
+    toggleSubTaskStatus: (subTask: SubTask) => {
+      subTask.open = !subTask.open
+    },
   },
   persist: {
     storage: sessionStorage,

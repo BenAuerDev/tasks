@@ -2,12 +2,17 @@
 import { getTimeDifference } from '../../src/utils/getTimeDifference.ts'
 import { useTaskStore } from '../store/task'
 import { Task } from '../types/task'
+import SubTaskList from './tasks/subTaskList.vue'
 
 defineProps<{
   tasks: Task[]
 }>()
 
 const { toggleTaskStatus } = useTaskStore()
+
+const hasSubTask = (task: Task) => {
+  return task.subTasks.length > 1
+}
 </script>
 
 <template>
@@ -15,31 +20,43 @@ const { toggleTaskStatus } = useTaskStore()
     <v-sheet
       v-for="task in tasks"
       :key="task.text"
-      position="relative"
       elevation="4"
-      height="100"
-      class="d-flex flex-column relative my-2 justify-center gap-y-2"
+      :class="`d-flex justify-center gap-y-2 px-6 py-4 ${
+        hasSubTask(task) ? 'flex-column' : 'flex-column-reverse'
+      }`"
     >
-      <v-btn
-        @click="() => toggleTaskStatus(task)"
-        :class="`${task.open ? 'text-gray' : 'text-green'} right-2 top-2 w-min`"
-        variant="plain"
-        position="absolute"
-        icon="mdi-check-circle-outline"
-        rounded="xl"
-      />
-      <div class="mx-4">
-        <p class="text-sm text-gray-600">
-          {{ task.completed ? 'created: ' : '' }}
-          {{ getTimeDifference(task.created) }}
-        </p>
+      <div class="flex w-full items-center justify-between">
+        <div>
+          <p class="text-sm text-gray-600">
+            {{ task.completed ? 'created: ' : '' }}
+            {{ getTimeDifference(task.created) }}
+          </p>
 
-        <p class="text-sm text-gray-600" v-if="task.completed">
-          completed:
-          {{ getTimeDifference(task.completed) }}
-        </p>
+          <p class="text-sm text-gray-600" v-if="task.completed">
+            completed:
+            {{ getTimeDifference(task.completed) }}
+          </p>
+        </div>
+
+        <v-btn
+          @click="() => toggleTaskStatus(task)"
+          :class="`${task.open ? 'text-gray' : 'text-green'} -m-3`"
+          variant="plain"
+          rounded="xl"
+          size="48"
+        >
+          <v-icon
+            :size="`${hasSubTask(task) ? '32' : '24'}`"
+            :icon="`${
+              task.open ? 'mdi-circle-outline' : 'mdi-check-circle-outline'
+            }`"
+          />
+        </v-btn>
       </div>
-      <p class="w-full text-center text-xl">{{ task.text }}</p>
+
+      <p class="w-full text-center text-2xl">{{ task.text }}</p>
+
+      <SubTaskList v-if="hasSubTask(task)" :sub-tasks="task.subTasks" />
     </v-sheet>
   </v-fade-transition>
 </template>
