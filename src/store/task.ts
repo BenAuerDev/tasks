@@ -12,7 +12,7 @@ export const useTaskStore = defineStore('tasks', {
   }),
   getters: {
     getOpenTasks: (state: TaskArray) => state.tasks.filter((task) => task.open),
-    getFinishedTasks: (state: TaskArray) =>
+    getCompletedTasks: (state: TaskArray) =>
       state.tasks.filter((task) => !task.open),
   },
   actions: {
