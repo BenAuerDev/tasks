@@ -1,5 +1,4 @@
 import moment, { Moment } from 'moment'
-import { Task } from '../types/task'
 
 // A util to get time difference between date and now
 export const getTimeDifference = (date: Moment) => {
