@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { getTimeDifference } from '../../src/utils/getTimeDifference.ts'
 import { useTaskStore } from '../store/task'
 import { Task } from '../types/task'
 
@@ -17,7 +18,7 @@ const { toggleTaskStatus } = useTaskStore()
       position="relative"
       elevation="4"
       height="100"
-      class="d-flex flex-column relative my-2 items-center justify-center"
+      class="d-flex flex-column relative my-2 justify-center gap-y-2"
     >
       <v-btn
         @click="() => toggleTaskStatus(task)"
@@ -27,8 +28,18 @@ const { toggleTaskStatus } = useTaskStore()
         icon="mdi-check-circle-outline"
         rounded="xl"
       />
+      <div class="mx-4">
+        <p class="text-sm text-gray-600">
+          {{ task.completed ? 'created: ' : '' }}
+          {{ getTimeDifference(task.created) }}
+        </p>
 
-      <p class="text-xl">{{ task.text }}</p>
+        <p class="text-sm text-gray-600" v-if="task.completed">
+          completed:
+          {{ getTimeDifference(task.completed) }}
+        </p>
+      </div>
+      <p class="w-full text-center text-xl">{{ task.text }}</p>
     </v-sheet>
   </v-fade-transition>
 </template>
