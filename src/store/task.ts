@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { defineStore } from 'pinia'
 import { Task } from '../types/task'
 
@@ -16,9 +17,22 @@ export const useTaskStore = defineStore('tasks', {
   },
   actions: {
     addTask(text: string) {
-      this.tasks.push({ open: true, text: text })
+      this.tasks.push({
+        open: true,
+        text: text,
+        created: moment(),
+        completed: null, // TODO: check if there is a smarter initial value for completed
+      })
     },
-    toggleTaskStatus: (task: Task) => (task.open = !task.open),
+    toggleTaskStatus: (task: Task) => {
+      if (task.open) {
+        task.completed = moment()
+        task.open = false
+      } else {
+        task.completed = null
+        task.open = true
+      }
+    },
   },
   persist: {
     storage: sessionStorage,
