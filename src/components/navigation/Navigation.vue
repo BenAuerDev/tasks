@@ -9,7 +9,7 @@ import NavigationLink from './NavigationLink.vue'
 
       <v-divider vertical></v-divider>
 
-      <NavigationLink to="/finished" text="Finished" />
+      <NavigationLink to="/completed" text="Completed Tasks" />
     </div>
   </nav>
 </template>

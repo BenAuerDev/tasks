@@ -1,15 +1,15 @@
-import { createWebHistory, createRouter } from "vue-router"
+import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
-    path: "/",
-    name: "Overview",
-    component: () => import("../views/Overview.vue"),
+    path: '/',
+    name: 'Overview',
+    component: () => import('../views/Overview.vue'),
   },
   {
-    path: "/finished",
-    name: "Finished",
-    component: () => import("../views/FinishedTasksView.vue"),
+    path: '/completed',
+    name: 'Completed',
+    component: () => import('../views/CompletedTasksView.vue'),
   },
 ]
 
