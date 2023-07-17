@@ -2,7 +2,7 @@
 import { getTimeDifference } from '../../src/utils/getTimeDifference.ts'
 import { useTaskStore } from '../store/task'
 import { Task } from '../types/task'
-import SubTaskList from './tasks/subTaskList.vue'
+import SubTaskList from './tasks/SubTaskList.vue'
 
 defineProps<{
   tasks: Task[]
