@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { getTimeDifference } from '../../src/utils/getTimeDifference.ts'
 import { useTaskStore } from '../store/task'
 import { Task } from '../types/task'
@@ -7,6 +8,8 @@ import SubTaskList from './tasks/SubTaskList.vue'
 defineProps<{
   tasks: Task[]
 }>()
+
+const router = useRouter()
 
 const { toggleTaskStatus } = useTaskStore()
 
@@ -22,7 +25,8 @@ const hasSubTask = (task: Task) => {
       v-for="task in tasks"
       :key="task.uuid"
       elevation="4"
-      :class="`d-flex justify-center gap-y-2 px-6 py-4 ${
+      @dblclick="() => router.push(`/edit-task/${task.uuid}/`)"
+      :class="`d-flex cursor-pointer justify-center gap-y-2 px-6 py-4 ${
         hasSubTask(task) ? 'flex-column' : 'flex-column-reverse'
       }`"
     >
