@@ -20,7 +20,7 @@ const hasSubTask = (task: Task) => {
   <v-fade-transition :group="true" leave-absolute>
     <v-sheet
       v-for="task in tasks"
-      :key="task.text"
+      :key="task.uuid"
       elevation="4"
       :class="`d-flex justify-center gap-y-2 px-6 py-4 ${
         hasSubTask(task) ? 'flex-column' : 'flex-column-reverse'

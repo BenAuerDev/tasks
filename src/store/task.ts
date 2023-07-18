@@ -1,5 +1,6 @@
 import moment from 'moment'
 import { defineStore } from 'pinia'
+import { v4 as uuidv4 } from 'uuid'
 import { SubTask, Task, TaskForm } from '../types/task'
 
 interface TaskArray {
@@ -18,6 +19,7 @@ export const useTaskStore = defineStore('tasks', {
   actions: {
     addTask(task: TaskForm) {
       this.tasks.push({
+        uuid: uuidv4(),
         open: true,
         text: task.text,
         created: moment(),
@@ -26,6 +28,7 @@ export const useTaskStore = defineStore('tasks', {
         subTasks: task.subTasks.length
           ? task.subTasks.map((subTask: SubTask) => {
               return {
+                uuid: uuidv4(),
                 open: true,
                 text: subTask.text,
               }

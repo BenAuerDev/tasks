@@ -13,7 +13,11 @@ defineProps<{
   <div class="flex flex-col gap-y-2">
     <p>Subtasks:</p>
 
-    <div v-for="subTask in subTasks" class="flex items-center justify-between">
+    <div
+      v-for="subTask in subTasks"
+      :key="subTask.uuid"
+      class="flex items-center justify-between"
+    >
       <div class="flex">
         <v-icon icon="mdi-circle-medium" />
         <p>{{ subTask.text }}</p>
