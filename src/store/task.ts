@@ -36,6 +36,30 @@ export const useTaskStore = defineStore('tasks', {
           : [],
       })
     },
+    updateTask(task: TaskForm) {
+      const taskToUpdate = this.tasks.find(
+        (search) => search.uuid === task.uuid
+      )
+      if (taskToUpdate) {
+        const index = this.tasks.indexOf(taskToUpdate)
+        this.tasks.splice(index, 1)
+        this.tasks[index] = {
+          uuid: task.uuid,
+          text: task.text,
+          priority: task.priority,
+          open: true,
+          created: taskToUpdate.created,
+          completed: taskToUpdate.completed,
+          subTasks: task.subTasks.map((subTask) => {
+            return {
+              uuid: subTask.uuid,
+              text: subTask.text,
+              open: true,
+            }
+          }),
+        }
+      }
+    },
     toggleTaskStatus: (task: Task) => {
       if (task.open) {
         task.completed = moment()

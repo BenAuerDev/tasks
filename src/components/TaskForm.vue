@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { useTaskStore } from '../store/task'
-import { TaskForm } from '../types/task'
+import { Task, TaskForm } from '../types/task'
 
-const { addTask } = useTaskStore()
+const { addTask, updateTask } = useTaskStore()
 const router = useRouter()
 
+const props = defineProps<{
+  task?: Task | undefined
+}>()
+
 const submit = (task: TaskForm) => {
-  addTask(task)
+  if (props.task) {
+    updateTask(task)
+  } else {
+    addTask(task)
+  }
   router.push('/')
 }
 </script>
@@ -18,7 +26,8 @@ const submit = (task: TaskForm) => {
       id="task-form"
       name="task-form"
       type="form"
-      submit-label="Create task"
+      :value="task"
+      :actions="false"
       @submit="(input) => submit(input)"
     >
       <p class="mb-4 text-2xl">Add a new task</p>
@@ -54,6 +63,19 @@ const submit = (task: TaskForm) => {
           name="text"
         />
       </FormKit>
+
+      <div class="flex h-[42px] items-stretch">
+        <FormKit type="submit">
+          {{ task ? 'Update Task' : 'Create Task' }}
+        </FormKit>
+
+        <RouterLink
+          to="/"
+          class="border-gray align-self-stretch flex items-center justify-center rounded border px-7"
+        >
+          Cancel
+        </RouterLink>
+      </div>
     </FormKit>
   </div>
 </template>
