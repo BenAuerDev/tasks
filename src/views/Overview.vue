@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import TaskCardList from '../components/TaskCardList.vue'
-import TaskFormModal from '../components/TaskFormModal.vue'
 import { useTaskStore } from '../store/task'
 
 const { getOpenTasks } = storeToRefs(useTaskStore())
@@ -9,7 +8,10 @@ const { getOpenTasks } = storeToRefs(useTaskStore())
 
 <template>
   <div class="my-4 flex w-full max-w-lg flex-col gap-y-2">
-    <TaskFormModal />
+    <v-btn to="/add-task/">
+      <v-icon icon="mdi-plus-thick" />
+      Add Task</v-btn
+    >
 
     <TaskCardList :tasks="getOpenTasks" />
   </div>
