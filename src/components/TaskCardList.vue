@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { getTimeDifference } from '../../src/utils/getTimeDifference.ts'
 import { useTaskStore } from '../store/task'
 import { Task } from '../types/task'
+import SortingSelectionDropdown from './SortingSelectionDropdown.vue'
 import SubTaskList from './tasks/SubTaskList.vue'
 
 defineProps<{
@@ -13,16 +15,43 @@ const router = useRouter()
 
 const { toggleTaskStatus } = useTaskStore()
 
+const sortingString = ref<string>('created-ascending')
+
 const hasSubTask = (task: Task) => {
   // TODO: check if this can be done more elegantly
   return task.subTasks ? task.subTasks.length > 1 : false
 }
+
+const sortList = (tasks: Task[], sortingString: string) => {
+  let list: Task[] = []
+  console.log(sortingString)
+
+  if (sortingString.includes('created')) {
+    list = tasks.sort((a, b) => (a.created > b.created ? 1 : -1))
+  } else if (sortingString.includes('priority')) {
+    list = tasks.sort((a, b) => a.priority - b.priority)
+  } else if (sortingString.includes('completed')) {
+    list = tasks.sort((a, b) =>
+      a.completed && b.completed && a.completed > b.completed ? 1 : -1
+    )
+  }
+
+  if (sortingString.includes('descending')) {
+    list.reverse()
+  }
+
+  return list
+}
 </script>
 
 <template>
+  <SortingSelectionDropdown
+    :tasks="tasks"
+    @sorting-selected="(selected: string) => (sortingString = selected)"
+  />
   <v-fade-transition :group="true" leave-absolute>
     <v-sheet
-      v-for="task in tasks"
+      v-for="task in sortList(tasks, sortingString)"
       :key="task.uuid"
       elevation="4"
       @dblclick="() => router.push(`/edit-task/${task.uuid}/`)"
