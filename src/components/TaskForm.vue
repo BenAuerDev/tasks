@@ -27,6 +27,7 @@ const submit = (task: TaskForm) => {
       name="task-form"
       type="form"
       :value="task"
+      #default="{ value }"
       :actions="false"
       @submit="(input) => submit(input)"
     >
@@ -43,7 +44,7 @@ const submit = (task: TaskForm) => {
       <FormKit
         type="range"
         name="priority"
-        label="Priority"
+        :label="`Priority: ${value.priority}`"
         min="1"
         value="3"
         max="10"
