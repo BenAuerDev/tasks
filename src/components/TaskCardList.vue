@@ -24,7 +24,6 @@ const hasSubTask = (task: Task) => {
 
 const sortList = (tasks: Task[], sortingString: string) => {
   let list: Task[] = []
-  console.log(sortingString)
 
   if (sortingString.includes('created')) {
     list = tasks.sort((a, b) => (a.created > b.created ? 1 : -1))
