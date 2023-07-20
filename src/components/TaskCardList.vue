@@ -54,7 +54,7 @@ const sortList = (tasks: Task[], sortingString: string) => {
       :key="task.uuid"
       elevation="4"
       @dblclick="() => router.push(`/edit-task/${task.uuid}/`)"
-      :class="`d-flex flex-column cursor-pointer justify-center gap-y-2 px-6 py-4`"
+      class="d-flex flex-column cursor-pointer justify-center gap-y-2 px-6 py-4"
     >
       <div class="flex w-full items-center justify-between">
         <div>
