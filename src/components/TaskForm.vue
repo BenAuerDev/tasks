@@ -39,8 +39,6 @@ const submit = (task: TaskForm) => {
   if (props.task) {
     updateTask(cleanTask(task))
   } else {
-    console.log(cleanTask(task))
-    console.log(task)
     addTask(cleanTask(task))
   }
   router.push('/')
