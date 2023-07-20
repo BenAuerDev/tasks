@@ -51,9 +51,9 @@ const submit = (task: TaskForm) => {
       />
 
       <FormKit
-        id="subTasks"
+        id="subtasks"
         type="repeater"
-        name="subTasks"
+        name="subtasks"
         label="Subtasks"
         #default="{ index }"
       >

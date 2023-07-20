@@ -1,7 +1,7 @@
 import moment from 'moment'
 import { defineStore } from 'pinia'
 import { v4 as uuidv4 } from 'uuid'
-import { SubTask, Task, TaskForm } from '../types/task'
+import { Subtask, Task, TaskForm } from '../types/task'
 
 interface TaskArray {
   tasks: Task[]
@@ -25,12 +25,12 @@ export const useTaskStore = defineStore('tasks', {
         created: moment(),
         completed: null, // TODO: check if there is a smarter initial value for completed
         priority: task.priority,
-        subTasks: task.subTasks.length
-          ? task.subTasks.map((subTask: SubTask) => {
+        subtasks: task.subtasks.length
+          ? task.subtasks.map((subtask: Subtask) => {
               return {
                 uuid: uuidv4(),
                 open: true,
-                text: subTask.text,
+                text: subtask.text,
               }
             })
           : [],
@@ -50,10 +50,10 @@ export const useTaskStore = defineStore('tasks', {
           open: true,
           created: taskToUpdate.created,
           completed: taskToUpdate.completed,
-          subTasks: task.subTasks.map((subTask) => {
+          subtasks: task.subtasks.map((subtask) => {
             return {
-              uuid: subTask.uuid,
-              text: subTask.text,
+              uuid: subtask.uuid,
+              text: subtask.text,
               open: true,
             }
           }),
@@ -69,8 +69,8 @@ export const useTaskStore = defineStore('tasks', {
         task.open = true
       }
     },
-    toggleSubTaskStatus: (subTask: SubTask) => {
-      subTask.open = !subTask.open
+    toggleSubTaskStatus: (subtask: Subtask) => {
+      subtask.open = !subtask.open
     },
   },
   persist: {

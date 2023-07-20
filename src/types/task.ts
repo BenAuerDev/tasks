@@ -4,7 +4,7 @@ export interface TaskForm {
   uuid: string
   text: string
   priority: number
-  subTasks: SubTask[] | []
+  subtasks: Subtask[] | []
 }
 
 export interface Task extends TaskForm {
@@ -13,7 +13,7 @@ export interface Task extends TaskForm {
   completed: Moment | null
 }
 
-export interface SubTask {
+export interface Subtask {
   uuid: string
   open: boolean
   text: string
