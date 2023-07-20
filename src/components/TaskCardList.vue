@@ -13,7 +13,7 @@ defineProps<{
 
 const router = useRouter()
 
-const { toggleTaskStatus } = useTaskStore()
+const { toggleTaskStatus, deleteTask } = useTaskStore()
 
 const sortingString = ref<string>('created-ascending')
 
@@ -70,6 +70,12 @@ const sortList = (tasks: Task[], sortingString: string) => {
             {{ getTimeDifference(task.completed) }}
           </p>
         </div>
+
+        <v-btn
+          @click="() => deleteTask(task)"
+          variant="plain"
+          icon="mdi-delete"
+        />
 
         <v-btn
           @click="() => toggleTaskStatus(task)"

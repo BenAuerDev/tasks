@@ -29,6 +29,11 @@ export const useTaskStore = defineStore('tasks', {
         this.tasks[index] = task
       }
     },
+    deleteTask(task: Task) {
+      if (window.confirm('Are you sure you want to delete this task?')) {
+        this.tasks.splice(this.tasks.indexOf(task), 1)
+      }
+    },
     toggleTaskStatus: (task: Task) => {
       if (task.open) {
         task.completed = moment()
