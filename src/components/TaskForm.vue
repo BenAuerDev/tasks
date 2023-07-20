@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import moment from 'moment'
+import { v4 as uuidv4 } from 'uuid'
 import { useRouter } from 'vue-router'
 import { useTaskStore } from '../store/task'
-import { Task, TaskForm } from '../types/task'
+import { Subtask, Task, TaskForm } from '../types/task'
 
 const { addTask, updateTask } = useTaskStore()
 const router = useRouter()
@@ -10,11 +12,36 @@ const props = defineProps<{
   task?: Task | undefined
 }>()
 
+const cleanSubtasks = (subtasks: Subtask[]) => {
+  const validSubtasks = subtasks.filter((subtask) => subtask.text)
+  return validSubtasks.map((subtask) => {
+    return {
+      uuid: uuidv4(),
+      open: true,
+      text: subtask.text,
+    }
+  })
+}
+
+const cleanTask = (task: TaskForm) => {
+  return {
+    uuid: uuidv4(),
+    text: task.text,
+    priority: task.priority,
+    open: true,
+    created: moment(),
+    completed: null,
+    subtasks: task.subtasks ? cleanSubtasks(task.subtasks) : null,
+  }
+}
+
 const submit = (task: TaskForm) => {
   if (props.task) {
-    updateTask(task)
+    updateTask(cleanTask(task))
   } else {
-    addTask(task)
+    console.log(cleanTask(task))
+    console.log(task)
+    addTask(cleanTask(task))
   }
   router.push('/')
 }
