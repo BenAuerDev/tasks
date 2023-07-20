@@ -1,7 +1,6 @@
 import moment from 'moment'
 import { defineStore } from 'pinia'
-import { v4 as uuidv4 } from 'uuid'
-import { Subtask, Task, TaskForm } from '../types/task'
+import { Subtask, Task } from '../types/task'
 
 interface TaskArray {
   tasks: Task[]
@@ -17,47 +16,17 @@ export const useTaskStore = defineStore('tasks', {
       state.tasks.filter((task) => !task.open),
   },
   actions: {
-    addTask(task: TaskForm) {
-      this.tasks.push({
-        uuid: uuidv4(),
-        open: true,
-        text: task.text,
-        created: moment(),
-        completed: null, // TODO: check if there is a smarter initial value for completed
-        priority: task.priority,
-        subtasks: task.subtasks.length
-          ? task.subtasks.map((subtask: Subtask) => {
-              return {
-                uuid: uuidv4(),
-                open: true,
-                text: subtask.text,
-              }
-            })
-          : [],
-      })
+    addTask(task: Task) {
+      this.tasks.push(task)
     },
-    updateTask(task: TaskForm) {
+    updateTask(task: Task) {
       const taskToUpdate = this.tasks.find(
         (search) => search.uuid === task.uuid
       )
       if (taskToUpdate) {
         const index = this.tasks.indexOf(taskToUpdate)
         this.tasks.splice(index, 1)
-        this.tasks[index] = {
-          uuid: task.uuid,
-          text: task.text,
-          priority: task.priority,
-          open: true,
-          created: taskToUpdate.created,
-          completed: taskToUpdate.completed,
-          subtasks: task.subtasks.map((subtask) => {
-            return {
-              uuid: subtask.uuid,
-              text: subtask.text,
-              open: true,
-            }
-          }),
-        }
+        this.tasks[index] = task
       }
     },
     toggleTaskStatus: (task: Task) => {

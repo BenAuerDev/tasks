@@ -5,7 +5,7 @@ import { Subtask } from '../../types/task'
 const { toggleSubTaskStatus } = useTaskStore()
 
 defineProps<{
-  subtasks: Subtask[] | []
+  subtasks: Subtask[] | null
 }>()
 </script>
 

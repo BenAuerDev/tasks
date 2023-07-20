@@ -4,7 +4,7 @@ export interface TaskForm {
   uuid: string
   text: string
   priority: number
-  subtasks: Subtask[] | []
+  subtasks: Subtask[] | null
 }
 
 export interface Task extends TaskForm {

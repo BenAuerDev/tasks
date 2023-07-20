@@ -19,7 +19,7 @@ const sortingString = ref<string>('created-ascending')
 
 const hasSubtask = (task: Task) => {
   // TODO: check if this can be done more elegantly
-  return task.subtasks ? task.subtasks.length > 1 : false
+  return task.subtasks && task.subtasks.length
 }
 
 const sortList = (tasks: Task[], sortingString: string) => {
