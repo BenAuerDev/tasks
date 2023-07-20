@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { useTaskStore } from '../../store/task'
-import { SubTask } from '../../types/task'
+import { Subtask } from '../../types/task'
 
 const { toggleSubTaskStatus } = useTaskStore()
 
 defineProps<{
-  subTasks: SubTask[] | []
+  subtasks: Subtask[] | []
 }>()
 </script>
 
@@ -14,23 +14,23 @@ defineProps<{
     <p>Subtasks:</p>
 
     <div
-      v-for="subTask in subTasks"
-      :key="subTask.uuid"
+      v-for="subtask in subtasks"
+      :key="subtask.uuid"
       class="flex items-center justify-between"
     >
       <div class="flex">
         <v-icon icon="mdi-circle-medium" />
-        <p>{{ subTask.text }}</p>
+        <p>{{ subtask.text }}</p>
       </div>
 
       <v-btn
-        @click="() => toggleSubTaskStatus(subTask)"
+        @click="() => toggleSubTaskStatus(subtask)"
         :class="`${
-          subTask.open ? 'text-gray' : 'text-green'
+          subtask.open ? 'text-gray' : 'text-green'
         } d-flex w-min justify-end`"
         variant="plain"
         :icon="`${
-          subTask.open ? 'mdi-circle-outline' : 'mdi-check-circle-outline'
+          subtask.open ? 'mdi-circle-outline' : 'mdi-check-circle-outline'
         }`"
         rounded="xl"
         height="24"

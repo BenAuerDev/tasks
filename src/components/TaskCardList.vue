@@ -5,7 +5,7 @@ import { getTimeDifference } from '../../src/utils/getTimeDifference.ts'
 import { useTaskStore } from '../store/task'
 import { Task } from '../types/task'
 import SortingSelectionDropdown from './SortingSelectionDropdown.vue'
-import SubTaskList from './tasks/SubTaskList.vue'
+import SubtaskList from './tasks/SubtaskList.vue'
 
 defineProps<{
   tasks: Task[]
@@ -17,9 +17,9 @@ const { toggleTaskStatus } = useTaskStore()
 
 const sortingString = ref<string>('created-ascending')
 
-const hasSubTask = (task: Task) => {
+const hasSubtask = (task: Task) => {
   // TODO: check if this can be done more elegantly
-  return task.subTasks ? task.subTasks.length > 1 : false
+  return task.subtasks ? task.subtasks.length > 1 : false
 }
 
 const sortList = (tasks: Task[], sortingString: string) => {
@@ -55,7 +55,7 @@ const sortList = (tasks: Task[], sortingString: string) => {
       elevation="4"
       @dblclick="() => router.push(`/edit-task/${task.uuid}/`)"
       :class="`d-flex cursor-pointer justify-center gap-y-2 px-6 py-4 ${
-        hasSubTask(task) ? 'flex-column' : 'flex-column-reverse'
+        hasSubtask(task) ? 'flex-column' : 'flex-column-reverse'
       }`"
     >
       <div class="flex w-full items-center justify-between">
@@ -79,7 +79,7 @@ const sortList = (tasks: Task[], sortingString: string) => {
           size="48"
         >
           <v-icon
-            :size="`${hasSubTask(task) ? '32' : '24'}`"
+            :size="`${hasSubtask(task) ? '32' : '24'}`"
             :icon="`${
               task.open ? 'mdi-circle-outline' : 'mdi-check-circle-outline'
             }`"
@@ -91,7 +91,7 @@ const sortList = (tasks: Task[], sortingString: string) => {
 
       <p class="my-4 w-full text-center text-2xl">{{ task.text }}</p>
 
-      <SubTaskList v-if="hasSubTask(task)" :sub-tasks="task.subTasks" />
+      <SubtaskList v-if="hasSubtask(task)" :subtasks="task.subtasks" />
     </v-sheet>
   </v-fade-transition>
 </template>
