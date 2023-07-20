@@ -54,9 +54,7 @@ const sortList = (tasks: Task[], sortingString: string) => {
       :key="task.uuid"
       elevation="4"
       @dblclick="() => router.push(`/edit-task/${task.uuid}/`)"
-      :class="`d-flex cursor-pointer justify-center gap-y-2 px-6 py-4 ${
-        hasSubtask(task) ? 'flex-column' : 'flex-column-reverse'
-      }`"
+      class="d-flex flex-column cursor-pointer justify-center gap-y-2 px-6 py-4"
     >
       <div class="flex w-full items-center justify-between">
         <div>
@@ -72,12 +70,6 @@ const sortList = (tasks: Task[], sortingString: string) => {
         </div>
 
         <v-btn
-          @click="() => deleteTask(task)"
-          variant="plain"
-          icon="mdi-delete"
-        />
-
-        <v-btn
           @click="() => toggleTaskStatus(task)"
           :class="`${task.open ? 'text-gray' : 'text-green'} -m-3`"
           variant="plain"
@@ -86,17 +78,23 @@ const sortList = (tasks: Task[], sortingString: string) => {
         >
           <v-icon
             :size="`${hasSubtask(task) ? '32' : '24'}`"
-            :icon="`${
-              task.open ? 'mdi-circle-outline' : 'mdi-check-circle-outline'
-            }`"
+            icon="mdi-check-circle-outline"
           />
         </v-btn>
       </div>
 
-      <p v-if="task.priority">Priority: {{ task.priority }}</p>
-
       <p class="my-4 w-full text-center text-2xl">{{ task.text }}</p>
 
+      <div class="flex justify-between">
+        <p>Priority: {{ task.priority }}</p>
+
+        <v-btn
+          @click="() => deleteTask(task)"
+          variant="plain"
+          size="24"
+          icon="mdi-delete"
+        />
+      </div>
       <SubtaskList v-if="hasSubtask(task)" :subtasks="task.subtasks" />
     </v-sheet>
   </v-fade-transition>
