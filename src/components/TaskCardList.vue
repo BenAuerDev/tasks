@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { getTimeDifference } from '../../src/utils/getTimeDifference.ts'
 import { useTaskStore } from '../store/task'
 import { Task } from '../types/task'
@@ -11,8 +10,6 @@ import TaskCardMenu from './tasks/TaskCardMenu.vue'
 defineProps<{
   tasks: Task[]
 }>()
-
-const router = useRouter()
 
 const { toggleTaskStatus } = useTaskStore()
 
