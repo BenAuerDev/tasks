@@ -6,6 +6,7 @@ import { useTaskStore } from '../store/task'
 import { Task } from '../types/task'
 import SortingSelectionDropdown from './SortingSelectionDropdown.vue'
 import SubtaskList from './tasks/SubtaskList.vue'
+import TaskCardMenu from './tasks/TaskCardMenu.vue'
 
 defineProps<{
   tasks: Task[]
@@ -13,7 +14,7 @@ defineProps<{
 
 const router = useRouter()
 
-const { toggleTaskStatus, deleteTask } = useTaskStore()
+const { toggleTaskStatus } = useTaskStore()
 
 const sortingString = ref<string>('created-ascending')
 
@@ -53,7 +54,6 @@ const sortList = (tasks: Task[], sortingString: string) => {
       v-for="task in sortList(tasks, sortingString)"
       :key="task.uuid"
       elevation="4"
-      @dblclick="() => router.push(`/edit-task/${task.uuid}/`)"
       class="d-flex flex-column cursor-pointer justify-center gap-y-2 px-6 py-4"
     >
       <div class="flex w-full items-center justify-between">
@@ -69,18 +69,7 @@ const sortList = (tasks: Task[], sortingString: string) => {
           </p>
         </div>
 
-        <v-btn
-          @click="() => toggleTaskStatus(task)"
-          :class="`${task.open ? 'text-gray' : 'text-green'} -m-3`"
-          variant="plain"
-          rounded="xl"
-          size="48"
-        >
-          <v-icon
-            :size="`${hasSubtask(task) ? '32' : '24'}`"
-            icon="mdi-check-circle-outline"
-          />
-        </v-btn>
+        <TaskCardMenu :actions="['Edit', 'Delete']" :task-uuid="task.uuid" />
       </div>
 
       <p class="my-4 w-full text-center text-2xl">{{ task.text }}</p>
@@ -88,12 +77,23 @@ const sortList = (tasks: Task[], sortingString: string) => {
       <div class="flex justify-between">
         <p>Priority: {{ task.priority }}</p>
 
-        <v-btn
-          @click="() => deleteTask(task)"
-          variant="plain"
-          size="24"
-          icon="mdi-delete"
-        />
+        <v-tooltip text="Mark task as complete/open">
+          <template v-slot:activator="{ props }">
+            <v-btn
+              v-bind="props"
+              @click="() => toggleTaskStatus(task)"
+              :class="`${task.open ? 'text-gray' : 'text-green'} -m-3`"
+              variant="plain"
+              rounded="xl"
+              size="48"
+            >
+              <v-icon
+                :size="`${hasSubtask(task) ? '32' : '24'}`"
+                icon="mdi-check-circle-outline"
+              />
+            </v-btn>
+          </template>
+        </v-tooltip>
       </div>
       <SubtaskList v-if="hasSubtask(task)" :subtasks="task.subtasks" />
     </v-sheet>
