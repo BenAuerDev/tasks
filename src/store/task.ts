@@ -29,8 +29,13 @@ export const useTaskStore = defineStore('tasks', {
         this.tasks[index] = task
       }
     },
-    deleteTask(task: Task) {
-      if (window.confirm('Are you sure you want to delete this task?')) {
+    deleteTask(uuid: string) {
+      const task = this.tasks.find((task) => task.uuid === uuid)
+
+      if (
+        window.confirm('Are you sure you want to delete this task?') &&
+        task
+      ) {
         this.tasks.splice(this.tasks.indexOf(task), 1)
       }
     },
