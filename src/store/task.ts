@@ -23,11 +23,10 @@ export const useTaskStore = defineStore('tasks', {
       const taskToUpdate = this.tasks.find(
         (search) => search.uuid === task.uuid
       )
-      if (taskToUpdate) {
-        const index = this.tasks.indexOf(taskToUpdate)
-        this.tasks.splice(index, 1)
-        this.tasks[index] = task
-      }
+
+      // @ts-ignore
+      const index = this.tasks.indexOf(taskToUpdate)
+      this.tasks.splice(index, 1, task)
     },
     deleteTask(uuid: string) {
       const task = this.tasks.find((task) => task.uuid === uuid)
